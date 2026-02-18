@@ -1,0 +1,11 @@
+{
+	"id": "mode-watermark",
+	"name": "Mode Watermark",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Subtle indicator when you are in editing mode",
+	"author": "Shane",
+	"authorUrl": "https://obsidian.md",
+	"fundingUrl": "https://obsidian.md/pricing",
+	"isDesktopOnly": false
+}
