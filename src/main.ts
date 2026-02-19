@@ -22,6 +22,12 @@ export default class ModeWatermarkPlugin extends Plugin {
 	async onload() {
 		this.addSettingTab(new ModeWatermarkSettingTab(this.app, this));
 		this.injectStyles();
+		this.setDefaultWatermarkColor();
+		this.registerEvent(
+			this.app.workspace.on("css-change", () => {
+				this.setDefaultWatermarkColor();
+			}),
+		);
 		console.log("ModeWatermarkPlugin loaded");
 		new Notice("ModeWatermarkPlugin loaded");
 
@@ -55,7 +61,9 @@ export default class ModeWatermarkPlugin extends Plugin {
 		this.styleEl.textContent = `
 /* Editing mode */
 .markdown-source-view {
-    background-color: #1a1a1a !important;
+    // background-color: #1a1a1a !important;
+	background-color: var(--background-primary);
+	transition: background-color 280ms cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
 }
 
@@ -68,9 +76,14 @@ export default class ModeWatermarkPlugin extends Plugin {
     transform: translate(-50%, -50%);
     font-size: 10rem;
     font-weight: 800;
+	// font-weight: 600; 
     letter-spacing: 8px;
+	// letter-spacing: 12px; 
     text-align: center;
-    color: rgba(255, 255, 255, 0.03);
+	color: var(--mode-watermark-color);
+    opacity: 0.25;
+	// opacity:0.08;
+	filter: blur(4px);
     pointer-events: none;
     z-index: 0;
     word-wrap: normal;
@@ -100,6 +113,22 @@ export default class ModeWatermarkPlugin extends Plugin {
 		if (this.styleEl) {
 			this.styleEl.remove();
 			this.styleEl = null;
+		}
+	}
+
+	setDefaultWatermarkColor() {
+		const isDark = document.body.classList.contains("theme-dark");
+
+		if (isDark) {
+			document.body.style.setProperty(
+				"--mode-watermark-color",
+				"var(--text-muted)",
+			);
+		} else {
+			document.body.style.setProperty(
+				"--mode-watermark-color",
+				"var(--text-muted)",
+			);
 		}
 	}
 }
@@ -155,9 +184,12 @@ class ModeWatermarkSettingTab extends PluginSettingTab {
 			.setName("Watermark Color")
 			.setDesc("Pick a sample color")
 			.addColorPicker((picker) => {
-				picker
-					.setValue("#ffffff")
-					.onChange((value) => console.log("Color picked:", value));
+				picker.setValue("#ffffff").onChange((value) => {
+					document.body.style.setProperty(
+						"--mode-watermark-color",
+						value,
+					);
+				});
 			});
 
 		// ---------------- Buy Me a Coffee Button ----------------
