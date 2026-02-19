@@ -7,8 +7,6 @@ import {
 	Setting,
 } from "obsidian";
 
-// Remember to rename these classes and interfaces!
-
 export default class ModeWatermarkPlugin extends Plugin {
 	async onload() {
 		this.addSettingTab(new ModeWatermarkSettingTab(this.app, this));
@@ -113,35 +111,6 @@ export default class ModeWatermarkPlugin extends Plugin {
 			this.styleEl = null;
 		}
 	}
-
-	private triggerWatermarkAnimation() {
-		const editors = document.querySelectorAll(".markdown-source-view");
-
-		editors.forEach((el) => {
-			// reset opacity
-			el.classList.remove("watermark-animate");
-			// trigger reflow to restart animation
-			// void el.offsetWidth;
-			// add class to trigger transition
-			el.classList.add("watermark-animate");
-		});
-	}
-
-	// setDefaultWatermarkColor() {
-	// 	const isDark = document.body.classList.contains("theme-dark");
-
-	// 	if (isDark) {
-	// 		document.body.style.setProperty(
-	// 			"--mode-watermark-color",
-	// 			"var(--text-muted)",
-	// 		);
-	// 	} else {
-	// 		document.body.style.setProperty(
-	// 			"--mode-watermark-color",
-	// 			"var(--text-muted)",
-	// 		);
-	// 	}
-	// }
 }
 
 class ModeWatermarkSettingTab extends PluginSettingTab {
