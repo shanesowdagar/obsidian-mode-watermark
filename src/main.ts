@@ -1,39 +1,21 @@
 import {
 	App,
-	Editor,
 	MarkdownView,
-	Modal,
 	Notice,
 	Plugin,
 	PluginSettingTab,
 	Setting,
 } from "obsidian";
-import {
-	DEFAULT_SETTINGS,
-	MyPluginSettings,
-	SampleSettingTab,
-} from "./settings";
 
 // Remember to rename these classes and interfaces!
 
 export default class ModeWatermarkPlugin extends Plugin {
-	// settings: MyPluginSettings;
-
 	async onload() {
 		this.addSettingTab(new ModeWatermarkSettingTab(this.app, this));
 		this.injectStyles();
-		this.setDefaultWatermarkColor();
-		this.registerEvent(
-			this.app.workspace.on("css-change", () => {
-				this.setDefaultWatermarkColor();
-			}),
-		);
+
 		console.log("ModeWatermarkPlugin loaded");
 		new Notice("ModeWatermarkPlugin loaded");
-
-		// await this.loadSettings();
-		// This adds a settings tab so the user can configure various aspects of the plugin
-		// this.addSettingTab(new SampleSettingTab(this.app, this));
 	}
 
 	onunload() {
@@ -41,14 +23,6 @@ export default class ModeWatermarkPlugin extends Plugin {
 		console.log("ModeWatermarkPlugin unloaded");
 		new Notice("ModeWatermarkPlugin unloaded");
 	}
-
-	// async loadSettings() {
-	// 	this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData() as Partial<MyPluginSettings>);
-	// }
-
-	// async saveSettings() {
-	// 	await this.saveData(this.settings);
-	// }
 
 	private styleEl: HTMLStyleElement | null = null;
 
@@ -60,15 +34,30 @@ export default class ModeWatermarkPlugin extends Plugin {
 
 		this.styleEl.textContent = `
 /* Editing mode */
-.markdown-source-view {
-    // background-color: #1a1a1a !important;
-	background-color: var(--background-primary);
-	transition: background-color 280ms cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-}
+// .markdown-source-view {
+//     position: relative;
+// }
 
 /* Source Mode Watermark */
 .markdown-source-view::before {
+	content: "EDIT MODE";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10rem;
+    font-weight: 800;
+    letter-spacing: 8px;
+    text-align: center;
+	color: var(--mode-watermark-color);
+	opacity:0;
+	filter: blur(4px);
+    pointer-events: none;
+    z-index: 0;
+    word-wrap: normal;
+	animation: fadeIn 0.2s ease-in forwards;
+}
+.markdown-preview-view::before  {
     content: "EDIT MODE";
     position: fixed;
     top: 50%;
@@ -76,17 +65,26 @@ export default class ModeWatermarkPlugin extends Plugin {
     transform: translate(-50%, -50%);
     font-size: 10rem;
     font-weight: 800;
-	// font-weight: 600; 
     letter-spacing: 8px;
-	// letter-spacing: 12px; 
     text-align: center;
 	color: var(--mode-watermark-color);
-    opacity: 0.25;
-	// opacity:0.08;
+	opacity:0.25;
 	filter: blur(4px);
     pointer-events: none;
     z-index: 0;
     word-wrap: normal;
+	animation: fadeOut 0.2s ease-in forwards;
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 0.25; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 0.25; }
+    to { opacity: 0; }
 }
 
 /* Laptop / Tablet */
@@ -116,21 +114,34 @@ export default class ModeWatermarkPlugin extends Plugin {
 		}
 	}
 
-	setDefaultWatermarkColor() {
-		const isDark = document.body.classList.contains("theme-dark");
+	private triggerWatermarkAnimation() {
+		const editors = document.querySelectorAll(".markdown-source-view");
 
-		if (isDark) {
-			document.body.style.setProperty(
-				"--mode-watermark-color",
-				"var(--text-muted)",
-			);
-		} else {
-			document.body.style.setProperty(
-				"--mode-watermark-color",
-				"var(--text-muted)",
-			);
-		}
+		editors.forEach((el) => {
+			// reset opacity
+			el.classList.remove("watermark-animate");
+			// trigger reflow to restart animation
+			// void el.offsetWidth;
+			// add class to trigger transition
+			el.classList.add("watermark-animate");
+		});
 	}
+
+	// setDefaultWatermarkColor() {
+	// 	const isDark = document.body.classList.contains("theme-dark");
+
+	// 	if (isDark) {
+	// 		document.body.style.setProperty(
+	// 			"--mode-watermark-color",
+	// 			"var(--text-muted)",
+	// 		);
+	// 	} else {
+	// 		document.body.style.setProperty(
+	// 			"--mode-watermark-color",
+	// 			"var(--text-muted)",
+	// 		);
+	// 	}
+	// }
 }
 
 class ModeWatermarkSettingTab extends PluginSettingTab {
