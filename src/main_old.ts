@@ -31,63 +31,89 @@ export default class ModeWatermarkPlugin extends Plugin {
 		this.styleEl.id = "mode-watermark-style";
 
 		this.styleEl.textContent = `
-/* Make sure container can hold overlay */
-.markdown-source-view,
-.markdown-preview-view {
-	position: relative;
+/* Editing mode */
+// .markdown-source-view {
+//     position: relative;
+// }
+
+/* Source Mode Watermark */
+.markdown-source-view::before {
+	content: "EDIT MODE";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10rem;
+    font-weight: 800;
+    letter-spacing: 8px;
+    text-align: center;
+	color: var(--mode-watermark-color);
+	opacity:0;
+	filter: blur(4px);
+    pointer-events: none;
+    z-index: 0;
+    word-wrap: normal;
+	animation: fadeIn 0.2s ease-in forwards;
+}
+.markdown-preview-view::before  {
+    content: "EDIT MODE";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10rem;
+    font-weight: 800;
+    letter-spacing: 8px;
+    text-align: center;
+	color: var(--mode-watermark-color);
+	opacity:0.15;
+	filter: blur(4px);
+    pointer-events: none;
+    z-index: 0;
+    word-wrap: normal;
+	animation: fadeOut 0.2s ease-in forwards;
 }
 
-/* Shared frame layer */
-.markdown-source-view::after,
-.markdown-preview-view::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	pointer-events: none;
-
-	opacity: 0;
-	transition: opacity 0.35s ease;
-
-	/* Gradient border color */
-	background: linear-gradient(
-		to bottom,
-		#ff7a00 0%,
-		rgba(255,122,0,0.8) 30%,
-		rgba(255,122,0,0.4) 60%,
-		transparent 100%
-	);
-
-	/* Create hollow center */
-	-webkit-mask:
-		linear-gradient(#000 0 0) content-box,
-		linear-gradient(#000 0 0);
-	-webkit-mask-composite: xor;
-	mask-composite: exclude;
-
-	padding: 6px; /* thickness of border */
-	border-radius: 8px;
+/* Keyframes */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 0.15; }
 }
 
-/* Edit mode visible */
-.markdown-source-view::after {
-	opacity: 1;
+@keyframes fadeOut {
+    from { opacity: 0.15; }
+    to { opacity: 0; }
 }
-
 
 /* Laptop / Tablet */
 @media (max-width: 1199px) and (min-width: 769px) {
-	.markdown-source-view {
-		box-shadow: inset 0 0 0 3px #ff7a00;
+    .markdown-source-view::before {
+        font-size: 9rem;
+        letter-spacing: 4px;
+		// background-color:lightgreen;
+    }
+
+	.markdown-preview-view::before {
+	    font-size: 9rem;
+        letter-spacing: 4px;
 	}
 }
 
 /* Mobile */
 @media (max-width: 768px) {
-	.markdown-source-view {
-		box-shadow: inset 0 0 0 2px #ff7a00;
+    .markdown-source-view::before {
+        font-size: 7rem;
+        letter-spacing: 4px;
+		// background-color:lightblue;
+
+    }
+
+	.markdown-preview-view::before {
+        font-size: 7rem;
+        letter-spacing: 4px;
 	}
 }
-`;
+    `;
 
 		document.head.appendChild(this.styleEl);
 	}
