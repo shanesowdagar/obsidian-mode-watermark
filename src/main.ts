@@ -66,7 +66,7 @@ export default class ModeWatermarkPlugin extends Plugin {
     letter-spacing: 8px;
     text-align: center;
 	color: var(--mode-watermark-color);
-	opacity:0.25;
+	opacity:0.15;
 	filter: blur(4px);
     pointer-events: none;
     z-index: 0;
@@ -77,28 +77,41 @@ export default class ModeWatermarkPlugin extends Plugin {
 /* Keyframes */
 @keyframes fadeIn {
     from { opacity: 0; }
-    to { opacity: 0.25; }
+    to { opacity: 0.15; }
 }
 
 @keyframes fadeOut {
-    from { opacity: 0.25; }
+    from { opacity: 0.15; }
     to { opacity: 0; }
 }
 
 /* Laptop / Tablet */
 @media (max-width: 1199px) and (min-width: 769px) {
     .markdown-source-view::before {
-        font-size: 6rem;
+        font-size: 9rem;
         letter-spacing: 4px;
+		// background-color:lightgreen;
     }
+
+	.markdown-preview-view::before {
+	    font-size: 9rem;
+        letter-spacing: 4px;
+	}
 }
 
 /* Mobile */
 @media (max-width: 768px) {
     .markdown-source-view::before {
-        font-size: 2rem;
+        font-size: 7rem;
         letter-spacing: 4px;
+		// background-color:lightblue;
+
     }
+
+	.markdown-preview-view::before {
+        font-size: 7rem;
+        letter-spacing: 4px;
+	}
 }
     `;
 
