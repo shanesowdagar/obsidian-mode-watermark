@@ -3,9 +3,7 @@
 	"name": "Mode Watermark",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Subtle indicator when you are in editing mode",
-	"author": "Shane",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "Displays a subtle watermark overlay to indicate when you are in edit mode.",
+	"author": "Shane Sowdagar",
 	"isDesktopOnly": false
 }
