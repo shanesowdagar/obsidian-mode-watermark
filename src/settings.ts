@@ -1,5 +1,6 @@
 import { App, PluginSettingTab } from "obsidian";
 import ModeWatermarkPlugin from "./main";
+
 export class ModeWatermarkSettingTab extends PluginSettingTab {
 	plugin: ModeWatermarkPlugin;
 
@@ -22,7 +23,7 @@ export class ModeWatermarkSettingTab extends PluginSettingTab {
 		badge.createDiv({ cls: "mode-watermark-settings-badge-dot" });
 		badge.createSpan({ text: "Plugin Active" });
 
-		// ── Title (div, not h2, to avoid Obsidian overrides) ──────────────────
+		// ── Title ─────────────────────────────────────────────────────────────
 		const title = card.createDiv({ cls: "mode-watermark-settings-title" });
 		title.appendText("Mode ");
 		title.createEl("em", {
@@ -39,12 +40,7 @@ export class ModeWatermarkSettingTab extends PluginSettingTab {
 		// ── Divider ───────────────────────────────────────────────────────────
 		card.createDiv({ cls: "mode-watermark-settings-divider" });
 
-		// ── Welcome ───────────────────────────────────────────────────────────
-		card.createDiv({
-			cls: "mode-watermark-settings-welcome-label",
-			text: "Welcome",
-		});
-
+		// ── Thanks ────────────────────────────────────────────────────────────
 		const thanks = card.createEl("p", {
 			cls: "mode-watermark-settings-thanks",
 		});
@@ -57,30 +53,8 @@ export class ModeWatermarkSettingTab extends PluginSettingTab {
 
 		card.createEl("p", {
 			cls: "mode-watermark-settings-description",
-			text: "Your editing mode is now always visible at a glance — quiet, unobtrusive, and always clear.",
+			text: "Shows a faint watermark when you're in edit mode.",
 		});
-
-		// ── Info tiles ────────────────────────────────────────────────────────
-		const grid = card.createDiv({ cls: "mode-watermark-settings-grid" });
-
-		const tiles: { label: string; value: string }[] = [
-			{ label: "Trigger", value: "Edit & Read mode" },
-			{ label: "Style", value: "Subtle overlay" },
-		];
-
-		for (const { label, value } of tiles) {
-			const tile = grid.createDiv({
-				cls: "mode-watermark-settings-tile",
-			});
-			tile.createDiv({
-				cls: "mode-watermark-settings-tile-label",
-				text: label,
-			});
-			tile.createDiv({
-				cls: "mode-watermark-settings-tile-value",
-				text: value,
-			});
-		}
 
 		// ── Footer ────────────────────────────────────────────────────────────
 		card.createDiv({ cls: "mode-watermark-settings-divider" });

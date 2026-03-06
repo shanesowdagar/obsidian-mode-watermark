@@ -89,12 +89,11 @@
 	padding: 20px 24px;
 	width: 100%;
 	max-width: 420px;
-	align-self: flex-start;
+	align-self: center;
 	box-shadow: 0 10px 30px color-mix(in srgb, var(--background-modifier-box-shadow) 70%, transparent);
 	animation: mode-watermark-settings-fadein 0.4s ease both;
 }
 
-/* Badge — standalone row at top */
 .mode-watermark-settings-badge {
 	display: inline-flex;
 	align-items: center;
@@ -122,7 +121,6 @@
 	animation: mode-watermark-pulse 2s ease-in-out infinite;
 }
 
-/* Title — use div to avoid Obsidian's h2 reset */
 .mode-watermark-settings-title {
 	font-size: 1.75rem !important;
 	font-weight: 300 !important;
@@ -140,16 +138,14 @@
 	font-weight: 300 !important;
 }
 
-/* Subtitle */
 .mode-watermark-settings-subtitle {
-	margin: 0 0 0 !important;
+	margin: 0 !important;
 	color: var(--text-muted) !important;
 	font-style: italic;
 	line-height: 1.5;
 	font-size: 0.92rem;
 }
 
-/* Divider */
 .mode-watermark-settings-divider {
 	height: 1px;
 	background: linear-gradient(
@@ -162,17 +158,6 @@
 	border: none;
 }
 
-/* Welcome label */
-.mode-watermark-settings-welcome-label {
-	font-size: 0.6rem !important;
-	font-family: var(--font-monospace) !important;
-	text-transform: uppercase;
-	letter-spacing: 0.12em;
-	color: var(--text-faint) !important;
-	margin-bottom: 8px;
-}
-
-/* Thanks */
 .mode-watermark-settings-thanks {
 	margin: 0 0 6px !important;
 	font-size: 1rem;
@@ -185,7 +170,6 @@
 	font-weight: 600 !important;
 }
 
-/* Description */
 .mode-watermark-settings-description {
 	margin: 0 !important;
 	color: var(--text-muted) !important;
@@ -193,41 +177,6 @@
 	font-size: 0.93rem;
 }
 
-/* Info tiles grid */
-.mode-watermark-settings-grid {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 10px;
-	margin-top: 16px;
-}
-
-.mode-watermark-settings-tile {
-	background: var(--background-secondary);
-	border: 1px solid var(--background-modifier-border);
-	border-radius: 10px;
-	padding: 12px 14px;
-	transition: border-color 0.2s ease;
-}
-
-.mode-watermark-settings-tile:hover {
-	border-color: var(--interactive-accent);
-}
-
-.mode-watermark-settings-tile-label {
-	font-size: 0.6rem !important;
-	font-family: var(--font-monospace) !important;
-	text-transform: uppercase;
-	letter-spacing: 0.1em;
-	color: var(--text-faint) !important;
-	margin-bottom: 5px;
-}
-
-.mode-watermark-settings-tile-value {
-	font-size: 0.92rem;
-	color: var(--interactive-accent) !important;
-}
-
-/* Footer */
 .mode-watermark-settings-footer {
 	display: flex;
 	align-items: center;
@@ -251,7 +200,6 @@
 	color: var(--text-accent) !important;
 }
 
-/* Animations */
 @keyframes mode-watermark-settings-fadein {
 	from { opacity: 0; transform: translateY(6px); }
 	to   { opacity: 1; transform: translateY(0); }
