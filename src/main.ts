@@ -1,4 +1,4 @@
-import { App, Plugin, PluginSettingTab } from "obsidian";
+import { Plugin } from "obsidian";
 import { ModeWatermarkSettingTab } from "settings";
 
 export default class ModeWatermarkPlugin extends Plugin {

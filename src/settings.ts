@@ -47,7 +47,7 @@ export class ModeWatermarkSettingTab extends PluginSettingTab {
 		thanks.appendText("Thanks for installing ");
 		thanks.createEl("strong", {
 			cls: "mode-watermark-settings-thanks-name",
-			text: "Mode Watermark",
+			text: "Mode watermark",
 		});
 		thanks.appendText(".");
 
