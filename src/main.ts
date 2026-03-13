@@ -1,4 +1,4 @@
-import { App, MarkdownView, Platform, Plugin } from "obsidian";
+import { MarkdownView, Platform, Plugin } from "obsidian";
 import { ModeWatermarkSettingTab } from "./settings";
 import {
 	clearModeWatermarkClasses,
