@@ -1,15 +1,16 @@
 :root,
 .theme-dark {
-	--mode-watermark-color: rgba(255, 255, 255, 0.5);
+	--mode-watermark-color: rgba(255, 255, 255, 0.6);
 }
 
 .theme-light {
-	--mode-watermark-color: rgba(0, 0, 0, 0.45);
+	--mode-watermark-color: rgba(0, 0, 0, 0.6);
 }
 
 /* ── Watermark overlay ─────────────────────────────────────────────────────── */
 
-.markdown-source-view::before {
+.mode-watermark-active-leaf .view-content::before,
+.mode-watermark-active-leaf.view-content::before {
 	content: "EDIT MODE";
 	position: fixed;
 	top: 50%;
@@ -25,26 +26,12 @@
 	pointer-events: none;
 	z-index: 0;
 	word-wrap: normal;
-	animation: mode-watermark-fade-in 0.2s ease-in forwards;
+	animation: mode-watermark-fade-out 0.2s ease-in forwards;
 }
 
-.markdown-preview-view::before {
-	content: "EDIT MODE";
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	font-size: 10rem;
-	font-weight: 800;
-	letter-spacing: 8px;
-	text-align: center;
-	color: var(--mode-watermark-color);
-	opacity: 0.15;
-	filter: blur(4px);
-	pointer-events: none;
-	z-index: 0;
-	word-wrap: normal;
-	animation: mode-watermark-fade-out 0.2s ease-in forwards;
+.mode-watermark-active-leaf.mode-watermark-edit-mode .view-content::before,
+.mode-watermark-active-leaf.mode-watermark-edit-mode.view-content::before {
+	animation: mode-watermark-fade-in 0.2s ease-in forwards;
 }
 
 @keyframes mode-watermark-fade-in {
@@ -58,19 +45,34 @@
 }
 
 @media (max-width: 1199px) and (min-width: 769px) {
-	.markdown-source-view::before,
-	.markdown-preview-view::before {
-		font-size: 9rem;
-		letter-spacing: 4px;
+	.mode-watermark-active-leaf .view-content::before,
+	.mode-watermark-active-leaf.view-content::before {
+		font-size: 10rem;
+		font-weight: 900;
+		letter-spacing: 3px;
 	}
 }
 
 @media (max-width: 768px) {
-	.markdown-source-view::before,
-	.markdown-preview-view::before {
-		font-size: 7rem;
-		letter-spacing: 4px;
+	.mode-watermark-active-leaf .view-content::before,
+	.mode-watermark-active-leaf.view-content::before {
+		/* font-size: 7rem; */
+		/* font-size: 9rem; */
+		font-size: 10rem;
+		font-weight: 900;
+		letter-spacing: 3px;
 	}
+}
+
+@media (max-width: 480px) {
+    .mode-watermark-active-leaf .view-content::before,
+    .mode-watermark-active-leaf.view-content::before {
+        font-size: 7rem;
+        letter-spacing: 1px;
+		font-weight: 900;
+
+
+    }
 }
 
 /* ── Settings page ─────────────────────────────────────────────────────────── */
