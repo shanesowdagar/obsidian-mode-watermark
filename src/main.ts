@@ -8,7 +8,7 @@ import {
 export default class ModeWatermarkPlugin extends Plugin {
 	private lastMode: string | null = null;
 
-	async onload() {
+	onload() {
 		this.addSettingTab(new ModeWatermarkSettingTab(this.app, this));
 
 		const syncWatermarks = () => syncModeWatermarkClasses(this.app);
