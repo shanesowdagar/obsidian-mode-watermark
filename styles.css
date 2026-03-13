@@ -1,17 +1,17 @@
 :root,
 .theme-dark {
-	--mode-watermark-color: rgba(255, 255, 255, 0.5);
+	--mode-watermark-color: rgba(255, 255, 255, 0.6);
 }
 
 .theme-light {
-	--mode-watermark-color: rgba(0, 0, 0, 0.45);
+	--mode-watermark-color: rgba(0, 0, 0, 0.6);
 }
 
 /* ── Watermark overlay ─────────────────────────────────────────────────────── */
 
 .mode-watermark-active-leaf .view-content::before,
 .mode-watermark-active-leaf.view-content::before {
-	content: "TESTING EDIT";
+	content: "EDIT MODE";
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -47,17 +47,32 @@
 @media (max-width: 1199px) and (min-width: 769px) {
 	.mode-watermark-active-leaf .view-content::before,
 	.mode-watermark-active-leaf.view-content::before {
-		font-size: 9rem;
-		letter-spacing: 4px;
+		font-size: 10rem;
+		font-weight: 900;
+		letter-spacing: 3px;
 	}
 }
 
 @media (max-width: 768px) {
 	.mode-watermark-active-leaf .view-content::before,
 	.mode-watermark-active-leaf.view-content::before {
-		font-size: 7rem;
-		letter-spacing: 4px;
+		/* font-size: 7rem; */
+		/* font-size: 9rem; */
+		font-size: 10rem;
+		font-weight: 900;
+		letter-spacing: 3px;
 	}
+}
+
+@media (max-width: 480px) {
+    .mode-watermark-active-leaf .view-content::before,
+    .mode-watermark-active-leaf.view-content::before {
+        font-size: 7rem;
+        letter-spacing: 1px;
+		font-weight: 900;
+
+
+    }
 }
 
 /* ── Settings page ─────────────────────────────────────────────────────────── */
